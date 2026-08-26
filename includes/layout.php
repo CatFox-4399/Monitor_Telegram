@@ -47,7 +47,7 @@ if (!defined('ACTIVE_NAV')) define('ACTIVE_NAV', 'dashboard');
         <span class="nav-icon">📋</span> Logs
       </a>
 
-      <a href="<?= BASE_URL ?>/cron/monitor.php"
+      <a href="<?= BASE_URL ?>/cron/monitor.php?token=webmonitor_cron_s3cr3t_2026"
          id="btnRunNow"
          class="nav-link">
         <span class="nav-icon">▶️</span> Run Check Now
