@@ -7,11 +7,16 @@
 
 // Allow execution from CLI and web
 if (php_sapi_name() !== 'cli') {
-    // Optionally restrict to localhost when called via browser
-    $allowedIPs = ['127.0.0.1', '::1'];
-    if (!in_array($_SERVER['REMOTE_ADDR'] ?? '', $allowedIPs)) {
+    $allowedIPs  = ['127.0.0.1', '::1'];
+    $secretToken = 'webmonitor_cron_s3cr3t_2026'; // change this!
+    $providedToken = $_GET['token'] ?? '';
+
+    $isLocalhost   = in_array($_SERVER['REMOTE_ADDR'] ?? '', $allowedIPs);
+    $isValidToken  = hash_equals($secretToken, $providedToken);
+
+    if (!$isLocalhost && !$isValidToken) {
         http_response_code(403);
-        die('Access denied. Run via CLI or localhost only.');
+        die('Access denied. Run via CLI or provide a valid token.');
     }
 }
 
